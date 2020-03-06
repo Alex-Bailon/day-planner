@@ -4,42 +4,43 @@ $('#currentDay').text(moment().format("dddd, MMMM Do"));
 let hours = [
     {
         hour: '9AM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '10AM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '11AM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '12PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '1PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '2PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '3PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '4PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     },
     {
         hour: '5PM',
-        timeEvent: ''
+        timeEvent: 'No Event'
     }
 ]
 
+init()
 let h = 9
 
 for (var i = 0; i < hours.length; i++){
@@ -47,13 +48,17 @@ for (var i = 0; i < hours.length; i++){
     let hourCol = $('<div>')
     let textArea = $('<textarea>')
     let saveButton = $('<button>')
+    let saveIcon = $('<i>')
     rowDiv.addClass('row time-block')
-    rowDiv.attr('id', 'hour-'+ h)
+    rowDiv.attr('id', i +' hour-'+ h)
     h++
     hourCol.addClass('col-md-1 hour')
     hourCol.text(hours[i].hour)
     textArea.addClass('col-md-10 timeEvent')
+    textArea.text(hours[i].timeEvent)
     saveButton.addClass('btn saveBtn col-md-1')
+    saveIcon.addClass('fas fa-save')
+    saveIcon.appendTo(saveButton)
     hourCol.appendTo(rowDiv)
     textArea.appendTo(rowDiv)
     saveButton.appendTo(rowDiv)
@@ -83,5 +88,20 @@ function currentHour(){
 }
 
 currentHour()
+
+$('.saveBtn').on('click', function(){
+    let val = $(this).siblings('.timeEvent').val()
+    let time = +($(this).parent().attr('id').split(' ')[0])
+    hours[time].timeEvent = val
+    localStorage.setItem('hours', JSON.stringify(hours))
+})
+
+function init(){
+    var retrive = JSON.parse(localStorage.getItem('hours'))
+    if (retrive !== null){
+        hours = retrive
+    }
+}
+
 
 })
