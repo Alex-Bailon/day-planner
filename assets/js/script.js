@@ -1,6 +1,8 @@
 $(document).ready(function(){
 $('#currentDay').text(moment().format("dddd, MMMM Do"));
-
+let today = moment().format('dddd, MMMM Do')
+let todayStored = moment().format('dddd, MMMM Do')
+initDate()
 let hours = [
     {
         hour: '9AM',
@@ -40,7 +42,56 @@ let hours = [
     }
 ]
 
-init()
+// let hoursArray
+
+if (today == todayStored){
+    init()
+    localStorage.setItem('todayStored', JSON.stringify(todayStored))   
+    console.log(hours)
+}
+else{
+    hours = [
+        {
+            hour: '9AM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '10AM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '11AM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '12PM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '1PM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '2PM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '3PM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '4PM',
+            timeEvent: 'No Event'
+        },
+        {
+            hour: '5PM',
+            timeEvent: 'No Event'
+        }
+    ]
+    console.log(hours)
+    todayStored = today
+    localStorage.setItem('todayStored', JSON.stringify(todayStored))
+}
 let h = 9
 
 for (var i = 0; i < hours.length; i++){
@@ -89,6 +140,8 @@ function currentHour(){
 
 currentHour()
 
+var updateHour = setInterval(currentHour, 30000);
+
 $('.saveBtn').on('click', function(){
     let val = $(this).siblings('.timeEvent').val()
     let time = +($(this).parent().attr('id').split(' ')[0])
@@ -103,5 +156,11 @@ function init(){
     }
 }
 
+function initDate(){
+    var ret = JSON.parse(localStorage.getItem('todayStored'))
+    if (ret !== null){
+        todayStored = ret
+    }
+}
 
 })
