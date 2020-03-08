@@ -3,7 +3,7 @@ $('#currentDay').text(moment().format("dddd, MMMM Do"));
 let today = moment().format('dddd, MMMM Do')
 let todayStored = moment().format('dddd, MMMM Do')
 initDate()
-let hours = [
+let hoursArray = [
     {
         hour: '9AM',
         timeEvent: 'No Event'
@@ -42,7 +42,7 @@ let hours = [
     }
 ]
 
-// let hoursArray
+let hours = hoursArray
 
 if (today == todayStored){
     init()
@@ -50,44 +50,7 @@ if (today == todayStored){
     console.log(hours)
 }
 else{
-    hours = [
-        {
-            hour: '9AM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '10AM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '11AM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '12PM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '1PM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '2PM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '3PM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '4PM',
-            timeEvent: 'No Event'
-        },
-        {
-            hour: '5PM',
-            timeEvent: 'No Event'
-        }
-    ]
+    hours = hoursArray
     console.log(hours)
     todayStored = today
     localStorage.setItem('todayStored', JSON.stringify(todayStored))
